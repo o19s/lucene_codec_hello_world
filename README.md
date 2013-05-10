@@ -1,5 +1,3 @@
-
-
 A starting point for a Lucene Codec. Points of interest
 
 
@@ -34,7 +32,7 @@ replace "MyCodec" with your codec
 
 5. Under the "classpath" tab make sure the following projects are in the class path
 
-    solr
-    codecPlay
+     solr
+     codecPlay
 
 Should be fairly trivial to acheive the same effect at the command line by simply running the Lucene unit tests normally, adding the new codec to the class path and setting -Dtests.codec=MyCodec
