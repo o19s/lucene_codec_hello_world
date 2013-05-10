@@ -51,10 +51,7 @@ public class MyPostingsConsumer extends PostingsConsumer {
 	
 	public Tuple getKey() {
 		// change to FDB tuple
-		Tuple key = new Tuple();
-		key.add(segment);
-		key.add(term.getBytes());
-	    return key;
+		return new Tuple().add(segment).add(term.getBytes());
 	}
 	
 	public byte[] getPostings() {
