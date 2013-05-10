@@ -22,10 +22,10 @@ public class MyPostingsFormat extends PostingsFormat {
 	}
 
 	@Override
-	public FieldsConsumer fieldsConsumer(SegmentWriteState arg0)
+	public FieldsConsumer fieldsConsumer(SegmentWriteState sws)
 			throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		return new MyFieldsConsumer(sws);
 	}
 
 	@Override
