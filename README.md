@@ -21,18 +21,18 @@ A starting point for a Lucene Codec. Points of interest
 2. Create a new JUnit debug configuration
 3. Set "Run all tests in the selected project, package, source or folder" to:
 
-    `lucene/core/src/test
+    lucene/core/src/test
 
 4. Under the "arguments" tab, for vm arguments you should have
 
-    `-ea
-     -Dtests.codec=MyCodec`
+    -ea
+    -Dtests.codec=MyCodec
 
 replace "MyCodec" with your codec
 
 5. Under the "classpath" tab make sure the following projects are in the class path
 
-    `solr
-     codecPlay`
+     solr
+     codecPlay
 
 Should be fairly trivial to acheive the same effect at the command line by simply running the Lucene unit tests normally, adding the new codec to the class path and setting -Dtests.codec=MyCodec
