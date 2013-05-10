@@ -1,4 +1,4 @@
-package com.o19s;
+package com.o19s.fdbcodec;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

@@ -1,4 +1,4 @@
-package com.o19s;
+package com.o19s.fdbcodec;
 
 import com.foundationdb.*;
 import java.nio.charset.Charset;
