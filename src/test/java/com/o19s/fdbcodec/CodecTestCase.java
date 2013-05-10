@@ -1,4 +1,4 @@
-package com.o19s;
+package com.o19s.fdbcodec;
 
 import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.index.FieldInfo;

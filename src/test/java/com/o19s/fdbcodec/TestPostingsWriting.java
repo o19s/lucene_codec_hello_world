@@ -1,4 +1,4 @@
-package com.o19s;
+package com.o19s.fdbcodec;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +18,8 @@ import org.apache.lucene.util.InfoStream;
 import org.apache.lucene.util.LuceneTestCase;
 import org.apache.lucene.util._TestUtil;
 import org.junit.Test;
+
+import com.o19s.fdbcodec.MyPostingsFormat;
 
 public class TestPostingsWriting extends CodecTestCase {
 

@@ -1,4 +1,4 @@
-package com.o19s;
+package com.o19s.fdbcodec;
 
 import junit.framework.Assert;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
@@ -27,6 +27,8 @@ import org.junit.Test;
 
 import com.foundationdb.Database;
 import com.foundationdb.FDB;
+import com.o19s.fdbcodec.Diff;
+import com.o19s.fdbcodec.MyPostingsFormat;
 
 import java.io.File;
 import java.io.IOException;
