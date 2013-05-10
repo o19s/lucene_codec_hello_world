@@ -23,10 +23,6 @@ import org.apache.lucene.codecs.lucene42.Lucene42Codec;
 import org.apache.lucene.codecs.perfield.PerFieldPostingsFormat;
 
 public class MyCodec extends FilterCodec {
-	
-	static {
-		System.out.println("Hello from MyCodec!");
-	}
 
 	public MyCodec() {
 		super("MyCodec", new Lucene42Codec());
