@@ -17,6 +17,7 @@ import org.apache.lucene.util.Constants;
 import org.apache.lucene.util.InfoStream;
 import org.apache.lucene.util.LuceneTestCase;
 import org.apache.lucene.util._TestUtil;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.o19s.fdbcodec.MyPostingsFormat;
@@ -24,9 +25,14 @@ import com.o19s.fdbcodec.MyPostingsFormat;
 public class TestPostingsWriting extends CodecTestCase {
 
 	final private static String SEGMENT = "0";
+	
+	@Before
+	public void blarg() {
+		System.out.println("Here...");
+	}
 
 	@Test
-	public void test() {
+	public void testMe() {
 		SegmentWriteState sws = createSegmentWriteState();
 
 		MyPostingsFormat postingFormatUnderTest = new MyPostingsFormat("foundationdb");
