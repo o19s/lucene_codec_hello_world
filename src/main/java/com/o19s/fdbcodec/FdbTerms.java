@@ -7,7 +7,7 @@ import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
 import org.apache.lucene.util.BytesRef;
 
-public class MyTerms extends Terms {
+public class FdbTerms extends Terms {
 
 	@Override
 	public Comparator<BytesRef> getComparator() {

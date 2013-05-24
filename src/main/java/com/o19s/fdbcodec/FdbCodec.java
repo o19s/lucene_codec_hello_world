@@ -22,9 +22,9 @@ import org.apache.lucene.codecs.lucene41.Lucene41Codec;
 import org.apache.lucene.codecs.lucene42.Lucene42Codec;
 import org.apache.lucene.codecs.perfield.PerFieldPostingsFormat;
 
-public class MyCodec extends FilterCodec {
+public class FdbCodec extends FilterCodec {
 
-	public MyCodec() {
+	public FdbCodec() {
 		super("MyCodec", new Lucene42Codec());
 		// TODO Auto-generated constructor stub
 	}

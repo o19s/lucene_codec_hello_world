@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.apache.lucene.codecs.FieldsProducer;
 import org.apache.lucene.index.Terms;
 
-public class MyFieldsProducer extends FieldsProducer {
+public class FdbFieldsProducer extends FieldsProducer {
 
 	@Override
 	public void close() throws IOException {

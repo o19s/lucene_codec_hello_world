@@ -10,14 +10,14 @@ import org.apache.lucene.util.IntsRef;
 
 import com.foundationdb.tuple.Tuple;
 
-public class MyPostingsConsumer extends PostingsConsumer {
+public class FdbPostingsConsumer extends PostingsConsumer {
 
 	private String segment;
 	private String term;
 	private IntsRef docs = new IntsRef(1024);
 	private int doccount = 0;
 	
-	public MyPostingsConsumer(String segmentName) {
+	public FdbPostingsConsumer(String segmentName) {
 		segment = segmentName;
 	}
 	

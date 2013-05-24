@@ -10,13 +10,13 @@ import org.apache.lucene.index.SegmentWriteState;
 import com.foundationdb.Database;
 import com.foundationdb.FDB;
 
-public class MyFieldsConsumer extends FieldsConsumer {
+public class FdbFieldsConsumer extends FieldsConsumer {
 
 	private FDB fdb;
 	private Database db;
 	private String segmentName;
 	
-	public MyFieldsConsumer(SegmentWriteState state) {
+	public FdbFieldsConsumer(SegmentWriteState state) {
 		fdb = FDB.selectAPIVersion(21);
 		db = fdb.open().get();
         segmentName = state.segmentInfo.name;
@@ -25,7 +25,7 @@ public class MyFieldsConsumer extends FieldsConsumer {
 	@Override
 	public TermsConsumer addField(FieldInfo arg0) throws IOException {
 		// TODO Auto-generated method stub
-		return new MyTermsConsumer(db, segmentName);
+		return new FdbTermsConsumer(db, segmentName);
 	}
 
 	@Override

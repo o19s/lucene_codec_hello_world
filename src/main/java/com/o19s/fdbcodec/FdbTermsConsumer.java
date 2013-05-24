@@ -33,14 +33,14 @@ import com.foundationdb.Transaction;
 //}
 
 
-public class MyTermsConsumer extends TermsConsumer {
+public class FdbTermsConsumer extends TermsConsumer {
 	
 	private Database db;
-	private MyPostingsConsumer postingsConsumer;
+	private FdbPostingsConsumer postingsConsumer;
 	
-	public MyTermsConsumer(Database db, String segmentName) {
+	public FdbTermsConsumer(Database db, String segmentName) {
 		this.db = db;
-		postingsConsumer = new MyPostingsConsumer(segmentName);
+		postingsConsumer = new FdbPostingsConsumer(segmentName);
 	}
 
 	@Override

@@ -14,9 +14,9 @@ import org.apache.lucene.index.SegmentWriteState;
 import org.apache.lucene.util.BytesRef;
 
 
-public class MyPostingsFormat extends PostingsFormat {
+public class FdbPostingsFormat extends PostingsFormat {
 
-	protected MyPostingsFormat(String name) {
+	protected FdbPostingsFormat(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
@@ -25,7 +25,7 @@ public class MyPostingsFormat extends PostingsFormat {
 	public FieldsConsumer fieldsConsumer(SegmentWriteState sws)
 			throws IOException {
 		// TODO Auto-generated method stub
-		return new MyFieldsConsumer(sws);
+		return new FdbFieldsConsumer(sws);
 	}
 
 	@Override
