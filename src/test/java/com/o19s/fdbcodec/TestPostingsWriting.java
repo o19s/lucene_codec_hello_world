@@ -31,7 +31,7 @@ import com.foundationdb.RangeQuery;
 import com.foundationdb.Transaction;
 import com.foundationdb.tuple.Range;
 import com.foundationdb.tuple.Tuple;
-import com.o19s.fdbcodec.MyPostingsFormat;
+import com.o19s.fdbcodec.FdbPostingsFormat;
 
 public class TestPostingsWriting extends CodecTestCase {
 
@@ -46,7 +46,9 @@ public class TestPostingsWriting extends CodecTestCase {
 	public void testMe() {
 		SegmentWriteState sws = createSegmentWriteState();
 
-		MyPostingsFormat postingFormatUnderTest = new MyPostingsFormat("foundationdb");
+		System.out.println("Running Test!!");
+		
+		FdbPostingsFormat postingFormatUnderTest = new FdbPostingsFormat("foundationdb");
 		try {
 			FieldsConsumer fc = postingFormatUnderTest.fieldsConsumer(sws);
 			assert(fc != null);

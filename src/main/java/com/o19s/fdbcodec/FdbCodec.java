@@ -25,7 +25,7 @@ import org.apache.lucene.codecs.perfield.PerFieldPostingsFormat;
 public class FdbCodec extends FilterCodec {
 
 	public FdbCodec() {
-		super("MyCodec", new Lucene42Codec());
+		super("FdbCodec", new Lucene42Codec());
 		// TODO Auto-generated constructor stub
 	}
 

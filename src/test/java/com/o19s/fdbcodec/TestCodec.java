@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.foundationdb.Database;
 import com.foundationdb.FDB;
 import com.o19s.fdbcodec.Diff;
-import com.o19s.fdbcodec.MyPostingsFormat;
+import com.o19s.fdbcodec.FdbPostingsFormat;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,7 +113,7 @@ public class TestCodec {
 
     public static class MockCodec extends Lucene42Codec {
         final PostingsFormat lucene40 = new Lucene41PostingsFormat();
-        final PostingsFormat foundationdb = new MyPostingsFormat("foundationdb");
+        final PostingsFormat foundationdb = new FdbPostingsFormat("foundationdb");
 
         @Override
         public PostingsFormat getPostingsFormatForField(String field) {
