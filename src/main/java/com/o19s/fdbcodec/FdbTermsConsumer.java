@@ -36,11 +36,14 @@ import com.foundationdb.Transaction;
 public class FdbTermsConsumer extends TermsConsumer {
 	
 	private Database db;
+	private String fieldName;
 	private FdbPostingsConsumer postingsConsumer;
 	
-	public FdbTermsConsumer(Database db, String segmentName) {
+	public FdbTermsConsumer(Database db, String fieldName, String segmentName) {
 		this.db = db;
-		postingsConsumer = new FdbPostingsConsumer(segmentName);
+		Transaction tr = db.createTransaction();		
+		this.fieldName = fieldName;
+		postingsConsumer = new FdbPostingsConsumer(segmentName, fieldName, tr);
 	}
 
 	@Override
@@ -50,9 +53,6 @@ public class FdbTermsConsumer extends TermsConsumer {
 
 	@Override
 	public void finishTerm(BytesRef arg0, TermStats arg1) throws IOException {
-		Transaction tr = db.createTransaction();
-		tr.set(postingsConsumer.getKey().pack(), postingsConsumer.getPostings());
-		tr.commit().get();
 	}
 
 	@Override

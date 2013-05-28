@@ -68,17 +68,18 @@ public class FdbTermsEnum extends TermsEnum {
 	@Override
 	public SeekStatus seekCeil(BytesRef text, boolean useCache) throws IOException {
 		// Need to think on this -- how can we cache this on the client side -- FST?
-		Transaction tr = db.createTransaction();
-		byte[] key = FdbCodecUtils.createKey(segment, text.utf8ToString()).pack();
-		RangeQuery resultFuture = tr.getRangeStartsWith(key);
-		results = resultFuture.asyncIterator();
-		if (results.hasNext().get()) {
-			return SeekStatus.NOT_FOUND;
-		}
-		else {
-			lastSearchTerm = text.clone();
-			return SeekStatus.FOUND;
-		}
+//		Transaction tr = db.createTransaction();
+//		byte[] key = FdbCodecUtils.createKey(segment, text.utf8ToString()).pack();
+//		RangeQuery resultFuture = tr.getRangeStartsWith(key);
+//		results = resultFuture.asyncIterator();
+//		if (results.hasNext().get()) {
+//			return SeekStatus.NOT_FOUND;
+//		}
+//		else {
+//			lastSearchTerm = text.clone();
+//			return SeekStatus.FOUND;
+//		}
+		return SeekStatus.NOT_FOUND;
 		
 
 	}

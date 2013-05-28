@@ -22,10 +22,14 @@ public class FdbFieldsConsumer extends FieldsConsumer {
         segmentName = state.segmentInfo.name;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.apache.lucene.codecs.FieldsConsumer#addField(org.apache.lucene.index.FieldInfo)
+	 * 
+	 */
 	@Override
-	public TermsConsumer addField(FieldInfo arg0) throws IOException {
+	public TermsConsumer addField(FieldInfo field) throws IOException {
 		// TODO Auto-generated method stub
-		return new FdbTermsConsumer(db, segmentName);
+		return new FdbTermsConsumer(db, field.name, segmentName);
 	}
 
 	@Override
