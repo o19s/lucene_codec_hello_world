@@ -3,6 +3,7 @@ package com.o19s.fdbcodec;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import org.apache.lucene.codecs.Codec;
@@ -24,6 +25,7 @@ import org.apache.lucene.util._TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.foundationdb.AsyncFuture;
 import com.foundationdb.Database;
 import com.foundationdb.FDB;
 import com.foundationdb.KeyValue;
@@ -32,8 +34,9 @@ import com.foundationdb.Transaction;
 import com.foundationdb.tuple.Range;
 import com.foundationdb.tuple.Tuple;
 import com.o19s.fdbcodec.FdbPostingsFormat;
+import com.o19s.fdbcodec.FdbCodecUtils.PostingsType;
 
-public class TestPostingsWriting extends CodecTestCase {
+public class TestPostingsWriting extends FdbCodecTestCase {
 
 	final private static String SEGMENT = "0";
 	
@@ -43,61 +46,46 @@ public class TestPostingsWriting extends CodecTestCase {
 	}
 
 	@Test
-	public void testMe() {
+	public void testTermFreqWriting() {
 		SegmentWriteState sws = createSegmentWriteState();
 
 		System.out.println("Running Test!!");
+		
+		final String fieldToWrite = "myField";
+		final String termToWrite = "dog";
+		final int docIdToWrite = 5;
+		final int termFreqToWrite = 1;
+		
 		
 		FdbPostingsFormat postingFormatUnderTest = new FdbPostingsFormat("foundationdb");
 		try {
 			FieldsConsumer fc = postingFormatUnderTest.fieldsConsumer(sws);
 			assert(fc != null);
 			
-			FieldInfo fi = createFieldInfo("myField");
+			// Write out a document with field myField containing term dog
+			FieldInfo fi = createFieldInfo(fieldToWrite);
 			TermsConsumer tc = fc.addField(fi);
 			
-			BytesRef term = new BytesRef("dog".getBytes());
+			BytesRef term = new BytesRef(termToWrite.getBytes());
 			
 			PostingsConsumer postConsumer = tc.startTerm(term);
-			postConsumer.startDoc(5, 0);
+			postConsumer.startDoc(docIdToWrite, termFreqToWrite);
 			postConsumer.finishDoc();
 			
 			tc.finishTerm(null, null);
 			
-			FDB fdb;
-			Database db;
+			Transaction tr = createFdbTransaction();
 			
-			fdb = FDB.selectAPIVersion(21);
-			db = fdb.open().get();
-			
-			Transaction tr = db.createTransaction();
-			
+			// Get all terms for segment
 			Tuple segmentPrefix = new Tuple();
 			Range prefix = segmentPrefix.range();
 			
-			RangeQuery rq = tr.getRange(prefix.begin, prefix.end);		
+			// This is a bit whitebox, make sure the data is there
+			// Specifically here we're looking for term frequency
+			Tuple key = FdbCodecUtils.createKey(SEGMENT, fieldToWrite, termToWrite, docIdToWrite, PostingsType.TERM_FREQ);
+			int readTermFreq = byteArrAsInt(tr.get(key.pack()).get());
 			
-			List<KeyValue> list =  rq.asList().get();
-			
-			try {
-				
-				for (KeyValue k: list) {
-					Tuple t1 = Tuple.fromBytes(k.getKey());
-					System.out.println(t1.toString());
-					BytesRef shouldBeDog = new BytesRef(t1.getBytes(1));
-					System.out.println(shouldBeDog.utf8ToString());
-				}
-			}
-			catch (Exception e ) {
-				System.out.println(e.toString());
-			}
-			
-//			Tuple rangeEnd = new Tuple(");
-//			rangeEnd.add("1".getBytes());
-//			
-			
-			
-			
+			assertEquals(readTermFreq, termFreqToWrite);
 			
 			fc.close();
 		} catch (IOException e) {

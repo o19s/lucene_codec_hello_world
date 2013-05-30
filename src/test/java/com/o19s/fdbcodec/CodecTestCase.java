@@ -41,6 +41,6 @@ public class CodecTestCase extends LuceneTestCase {
     FieldInfo createFieldInfo(String fieldName) {
     	FieldInfo fi = new FieldInfo(fieldName, true, 0, true, true, true, FieldInfo.IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS, null, null, null);
 		return fi;
-    }
+    }  
        
 }
