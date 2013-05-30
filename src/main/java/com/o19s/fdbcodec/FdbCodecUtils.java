@@ -30,6 +30,15 @@ public class FdbCodecUtils {
 	 * @return
 	 */
 	public static Tuple createKey(String segment, String field, String term, int docId, PostingsType pstType ) {
-		return new Tuple().add(segment).add(field.getBytes()).add(term.getBytes()).add(docId).add(pstType.getValue());
+		// A reeeally big tuple
+		int pstAsInt = pstType.getValue();
+		
+		return new Tuple()
+			.add(segment.getBytes())
+			.add(field.getBytes())
+			.add(term.getBytes())
+			.add(docId)
+			.add(pstAsInt);
+				
 	}
 }

@@ -53,8 +53,8 @@ public class TestPostingsWriting extends CodecTestCase {
 			FieldsConsumer fc = postingFormatUnderTest.fieldsConsumer(sws);
 			assert(fc != null);
 			
-			//FieldInfo fi = new FieldInfo("myfield", true, 0, true, true, true, null, null, null, null);
-			TermsConsumer tc = fc.addField(null);
+			FieldInfo fi = createFieldInfo("myField");
+			TermsConsumer tc = fc.addField(fi);
 			
 			BytesRef term = new BytesRef("dog".getBytes());
 			

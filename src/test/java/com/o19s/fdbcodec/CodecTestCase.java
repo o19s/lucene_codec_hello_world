@@ -15,7 +15,6 @@ public class CodecTestCase extends LuceneTestCase {
 		
 	FieldInfo[] info = new FieldInfo[0];
 	final private String SEGMENT = "0";
- 
 
    
     private SegmentInfo createSegmentInfo() {
@@ -37,6 +36,11 @@ public class CodecTestCase extends LuceneTestCase {
 				  null, newIOContext(random()));
 		return sws;
 
+    }
+    
+    FieldInfo createFieldInfo(String fieldName) {
+    	FieldInfo fi = new FieldInfo(fieldName, true, 0, true, true, true, FieldInfo.IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS, null, null, null);
+		return fi;
     }
        
 }
