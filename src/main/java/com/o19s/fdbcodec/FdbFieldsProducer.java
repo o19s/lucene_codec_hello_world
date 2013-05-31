@@ -16,6 +16,8 @@ public class FdbFieldsProducer extends FieldsProducer {
 
 	@Override
 	public Iterator<String> iterator() {
+		// Iterate the names of the fields
+		// Does foundation db have any field collapsing?
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -23,12 +25,15 @@ public class FdbFieldsProducer extends FieldsProducer {
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		// SimpleText returns -1, why!?
+		return -1;
 	}
 
 	@Override
 	public Terms terms(String arg0) throws IOException {
 		// TODO Auto-generated method stub
+		// Return something that encapsulates the terms 
+		// and a TermsEnum
 		return null;
 	}
 

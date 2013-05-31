@@ -71,7 +71,6 @@ public class TestPostingsWriting extends FdbCodecTestCase {
 			PostingsConsumer postConsumer = tc.startTerm(term);
 			postConsumer.startDoc(docIdToWrite, termFreqToWrite);
 			postConsumer.finishDoc();
-			
 			tc.finishTerm(null, null);
 			
 			Transaction tr = createFdbTransaction();
