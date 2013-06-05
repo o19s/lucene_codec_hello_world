@@ -15,11 +15,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.foundationdb</groupId>
-      <artifactId>fdbclient</artifactId>
-      <version>0.2.1</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
       <version>4.2.1</version>
