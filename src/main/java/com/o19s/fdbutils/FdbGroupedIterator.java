@@ -14,42 +14,6 @@ import com.foundationdb.tuple.ArrayUtil;
 import com.foundationdb.tuple.Tuple;
 
 public class FdbGroupedIterator implements Iterator<Tuple> {
-	
-	public static class PreIterator<T extends Object> implements Iterator<T> {
-		
-		private Iterator<T> wrappedIter;
-		private int howMany;
-		private int cursor;
-		
-		public PreIterator(Iterator<T> wrappedIter, int howMany) {
-			this.wrappedIter = wrappedIter;
-			this.howMany = howMany;
-			this.cursor = 0;
-		}
-
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return cursor < howMany && wrappedIter.hasNext();
-		}
-
-		@Override
-		public T next() {
-			// TODO Auto-generated method stub
-			++cursor;
-			return wrappedIter.next();
-			
-		}
-
-		@Override
-		public void remove() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException();
-		}
-		
-	}
-	
-	
 	// Use a transaction to iterate form begin <= end returning
 	// all the unique keys in the tuples from 0 ... tupleLevel
 	//
@@ -152,13 +116,16 @@ public class FdbGroupedIterator implements Iterator<Tuple> {
 			
 			KeySelector ks = nextTupleSelector(cursor);
 			
+			// Preget
 			AsyncFuture<byte[]> result = tr.getKey(ks);
 			byte[] foo = result.get();
 			
+			// Some debug code
 			Tuple t = Tuple.fromBytes(foo);
 			String s1 = t.getString(0);
 			String s2 = t.getString(1);
-			
+					
+			// Get via range
 			RangeQuery getResult = tr.getRange(ks, endKs); 
 			AsyncIterator<KeyValue> iter = getResult.asyncIterator();
 			assert(iter.hasNext().get());

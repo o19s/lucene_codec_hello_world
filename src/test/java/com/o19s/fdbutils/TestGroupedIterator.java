@@ -83,11 +83,12 @@ public class TestGroupedIterator {
 		Iterator<Tuple> collapsedIter = new FdbGroupedIterator(begin, end, 2, db.createTransaction().snapshot);
 		
 		Tuple shouldBeAA = collapsedIter.next();
-		Tuple shouldBeAB = collapsedIter.next();
-		Tuple shouldBeAC = collapsedIter.next();
-		
 		assert(shouldBeAA.compareTo(new Tuple().add("a").add("a")) == 0);
-		
+		Tuple shouldBeAB = collapsedIter.next();
+		assert(shouldBeAA.compareTo(new Tuple().add("a").add("b")) == 0);
+		Tuple shouldBeAC = collapsedIter.next();
+		assert(shouldBeAA.compareTo(new Tuple().add("a").add("c")) == 0);		
+				
 		
 		// write some test data out
 		
