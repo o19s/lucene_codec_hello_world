@@ -61,25 +61,17 @@ public class TestMultipleAsyncIterators {
 								   new Tuple().add("a").add("b").pack(),
 								   new Tuple().add("a").add("c").pack()};
 			
-			for (int i= 0; i < 3; ++i) {
-				System.out.println(someTuples[i].toString());
-			
-				KeySelector ks = KeySelector.firstGreaterOrEqual(someTuples[i]);
+			for (int i= 0; i < 3; ++i) {	
+				KeySelector begKs = KeySelector.firstGreaterOrEqual(someTuples[i]);
 				// http://community.foundationdb.com/questions/539/using-keyselectors-in-rangequery-whats-best-way-to-select-the-end-inclusive
 				KeySelector endKs = KeySelector.firstGreaterThan(end.pack());
-				byte[] arr = tr.getKey(ks).get();
 				
-				RangeQuery rq = tr.getRange(ks, endKs);
+				RangeQuery rq = tr.getRange(begKs, endKs);
 				AsyncIterator<KeyValue> iter = rq.asyncIterator();	
 				
 				assert(iter.hasNext().get());
 				byte[] key = iter.next().get().getKey();
-				Tuple t = Tuple.fromBytes(key);
-				String c1 = t.getString(0);
-				String c2 = t.getString(1);
-				String c3 = t.getString(2);
-				System.out.println("Got " + c1 + "," + c2 + "," + c3);
-
+				
 				// Exhausting the future causes no NullPointerException 
 				//while (iter.hasNext().get()) {
 				//	iter.next().get();
