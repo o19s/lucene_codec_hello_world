@@ -39,7 +39,25 @@ public class FdbGroupedIterator implements Iterator<Tuple> {
 	private KeySelector endKs;
 	private boolean done = false;	
 	
-	private static Tuple getSubTuple(Tuple tup, int depth) {
+	/**
+	 * Create a new tuple based on tup that is tup at depth
+	 * depth
+	 * 
+	 * ie 
+	 * getSubTuple(new Tuple().add("a").add("b").add("c"), 2)
+	 * results in Tuple a.b
+	 * 
+	 * TODO -- is this a degenerate case?
+	 * getSubTuple(new Tuple().add("a"), 2)
+	 * results in Tuple a
+	 * 
+	 * @param tup
+	 *   Input tuple
+	 * @param depth
+	 *   Depth to take from
+	 * @return
+	 */
+	public static Tuple getSubTuple(Tuple tup, int depth) {
 		Iterator<Object> origIter = tup.iterator();
 		
 		Tuple subTuple = new Tuple();
@@ -50,6 +68,18 @@ public class FdbGroupedIterator implements Iterator<Tuple> {
 		return subTuple;
 	}
 	
+	
+	/**
+	 * Given tuple a.b.efg, what is the next possible tuple
+	 * while maintaining the same size? 
+	 *    Well its a.b.efh!
+	 * @param fdbKey
+	 *   Tuple to examine
+	 * @return
+	 *   new tuple after fdbKey and of the same length
+	 *   
+	 *   TODO -- throw exception on non string tuples?
+	 */
 	private static Tuple nextPossibleTuple(Tuple fdbKey) {
 		assert (fdbKey.size() > 0);
 		
@@ -87,7 +117,7 @@ public class FdbGroupedIterator implements Iterator<Tuple> {
 	public FdbGroupedIterator(Tuple begin, Tuple end, int tupleDepth, ReadTransaction tr) {
 		
 		this.tr = tr;
-		this.endKs = KeySelector.lastLessThan(end.pack());
+		this.endKs = KeySelector.firstGreaterThan(end.pack());
 		
 		// Assumption is that something starting with "begin" exists in the database
 		cursor = getSubTuple(begin, tupleDepth); 
@@ -110,8 +140,6 @@ public class FdbGroupedIterator implements Iterator<Tuple> {
 		Tuple rKey = cursor;
 
 		try {
-		
-	
 			System.out.println("Current cursor:" + ArrayUtil.printable(cursor.pack()));
 			
 			KeySelector ks = nextTupleSelector(cursor);
